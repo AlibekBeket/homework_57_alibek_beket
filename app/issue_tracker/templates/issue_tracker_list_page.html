@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Issue Tracker List{% endblock %}
+{% block navbar %}
+<a href="{% url 'issues_list' %}">Issue List</a>
+<a href="#">Add Issue</a>
+{% endblock %}
+{% block content %}
+{% for issue in issues %}
+<div class="issue_info">
+    <p><a href="{% url 'issue_detail' issue.pk %}">{{ issue.summary }}</a></p>
+    <p>Type: {{ issue.type.type_name }}</p>
+    <p>Status: {{ issue.status.status_name }}</p>
+</div>
+{% endfor %}
+{% endblock %}
