@@ -10,4 +10,4 @@ class Type(models.Model):
     )
 
     def __str__(self):
-        return f"Type - {self.type_name}"
+        return self.type_name
