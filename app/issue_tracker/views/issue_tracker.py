@@ -14,6 +14,7 @@ class IssueTrackerView(TemplateView):
         context['issues'] = Issue.objects.all()
         return context
 
+
 class IssueDetailView(TemplateView):
     template_name = 'issue_detail_page.html'
 
@@ -39,3 +40,19 @@ class IssueUpdateView(TemplateView):
             form.save()
             return redirect('issue_detail', pk=issue.pk)
         return render(request, 'issue_update_page.html', context={'form': form, 'issue': issue})
+
+
+class IssueAddView(TemplateView):
+    template_name = 'issue_create_page.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = IssueForm()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        form = IssueForm(request.POST)
+        if form.is_valid():
+            issue = form.save()
+            return redirect('issue_detail', pk=issue.pk)
+        return render(request, 'issue_create_page.html', context={'form': form})

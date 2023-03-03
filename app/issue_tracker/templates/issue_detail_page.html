@@ -2,7 +2,7 @@
 {% block title %}Issue Detail{% endblock %}
 {% block navbar %}
 <a href="{% url 'issues_list' %}">Issue List</a>
-<a href="#">Add Issue</a>
+<a href="{% url 'issue_add' %}">Add Issue</a>
 <a href="{% url 'issue_update' issue.pk %}">Update Issue</a>
 <a href="#">Delete Issue</a>
 {% endblock %}
