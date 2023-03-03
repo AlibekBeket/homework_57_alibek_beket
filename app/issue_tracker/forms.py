@@ -7,15 +7,14 @@ from issue_tracker.models import Type, Status
 
 
 class IssueForm(forms.ModelForm):
-    type = forms.ModelChoiceField(required=True, queryset=Type.objects.all(), label='Type')
-    status = forms.ModelChoiceField(required=True, queryset=Status.objects.all(), label='Status')
-
     class Meta:
         model = Issue
-        fields = ('summary', 'description')
+        fields = ('summary', 'description', 'status', 'type')
         labels = {
             'summary': 'Краткое описание',
-            'description': 'Описание'
+            'description': 'Описание',
+            'status': 'Статус',
+            'type': 'Тип'
         }
 
     def clean_summary(self):

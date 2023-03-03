@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, RedirectView
 from issue_tracker.models import *
 
 from issue_tracker.forms import IssueForm
+
 
 
 class IssueTrackerView(TemplateView):
@@ -56,3 +57,19 @@ class IssueAddView(TemplateView):
             issue = form.save()
             return redirect('issue_detail', pk=issue.pk)
         return render(request, 'issue_create_page.html', context={'form': form})
+
+
+class IssueDeleteView(TemplateView):
+    template_name = 'issue_delete_page.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['issue'] = get_object_or_404(Issue, pk=kwargs['pk'])
+        return context
+
+    def post(self, **kwargs):
+        issue = get_object_or_404(Issue, pk=kwargs['pk'])
+        issue.delete()
+        return redirect('issues_list')
+
+
