@@ -8,7 +8,11 @@
 {% for issue in issues %}
 <div class="issue_info">
     <p><a href="{% url 'issue_detail' issue.pk %}">{{ issue.summary }}</a></p>
-    <p>Type: {{ issue.type.type_name }}</p>
+    <p>Type:
+        {% for type in issue.type.all %}
+        {{ type.type_name }}
+        {% endfor %}
+    </p>
     <p>Status: {{ issue.status.status_name }}</p>
 </div>
 {% endfor %}

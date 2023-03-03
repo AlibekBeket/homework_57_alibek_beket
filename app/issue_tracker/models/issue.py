@@ -15,16 +15,10 @@ class Issue(models.Model):
         verbose_name="Полное описание"
     )
     status = models.ForeignKey(
-        'issue_tracker.Status',
-        on_delete=models.CASCADE,
+        to='issue_tracker.Status',
+        on_delete=models.PROTECT,
         related_name='status',
         verbose_name='Статус'
-    )
-    type = models.ForeignKey(
-        'issue_tracker.Type',
-        on_delete=models.CASCADE,
-        related_name='type',
-        verbose_name='Тип'
     )
     created_at = models.DateTimeField(
         auto_now_add=True,
@@ -33,6 +27,12 @@ class Issue(models.Model):
     updated_at = models.DateTimeField(
         auto_now=True,
         verbose_name='Время обновления'
+    )
+    type = models.ManyToManyField(
+        to='issue_tracker.Type',
+        related_name='type',
+        verbose_name='Тип',
+        blank=True
     )
 
     def __str__(self):
