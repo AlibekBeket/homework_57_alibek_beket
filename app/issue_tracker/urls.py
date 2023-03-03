@@ -1,6 +1,7 @@
 from django.urls import path
 
-from issue_tracker.views.issue_tracker import *
+from issue_tracker.views.issue_tracker import IssueTrackerView, IssueDetailView, IssueUpdateView, IssueAddView, \
+    IssueDeleteView
 
 urlpatterns = [
     path('', IssueTrackerView.as_view()),
